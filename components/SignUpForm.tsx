@@ -84,7 +84,7 @@ const SignUpForm = () => {
                                 <FormLabel>name</FormLabel>
                                 <FormControl>
                                     <Input placeholder='johndoe' {...field}
-                                        className='bg-transparent/50'
+                                        className='bg-transparent/10'
                                     />
                                 </FormControl>
                                 <FormMessage />
@@ -99,7 +99,7 @@ const SignUpForm = () => {
                                 <FormLabel>Email</FormLabel>
                                 <FormControl>
                                     <Input placeholder='mail@example.com' {...field}
-                                        className='bg-transparent/50'
+                                        className='bg-transparent/10'
                                     />
                                 </FormControl>
                                 <FormMessage />
@@ -116,7 +116,7 @@ const SignUpForm = () => {
                                     <Input
                                         type='password'
                                         placeholder='Enter your password'
-                                        className='bg-transparent/50'
+                                        className='bg-transparent/10'
                                         {...field}
                                     />
                                 </FormControl>
@@ -134,7 +134,7 @@ const SignUpForm = () => {
                                     <Input
                                         placeholder='Re-Enter your password'
                                         type='password'
-                                        className='bg-transparent/50'
+                                        className='bg-transparent/10'
                                         {...field}
                                     />
                                 </FormControl>

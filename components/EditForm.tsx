@@ -1,5 +1,5 @@
 "use client"
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import {
     Select,
@@ -37,23 +37,41 @@ const FormSchema = z.object({
 });
 
 
-export default function BlogForm2() {
+interface BlogProps {
+    id: string;
+    title: string;
+    content: string;
+    imageUrl: string;
+    authorId: string;
+    createdAt: Date;
+    updatedAt: Date;
+    category: {
+        id: string;
+        name: string;
+        createdAt: Date;
+        updatedAt: Date;
+    };
+}
+
+export default function EditForm(
+    { blog }: { blog: BlogProps }
+) {
 
 
     const { toast } = useToast()
     const [loading, setLoading] = useState(false)
     const [file, setFile] = useState<File | null>(null);
 
-    const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-    const [category, setCategory] = useState<string>('');
+    const [previewUrl, setPreviewUrl] = useState<string | null>(blog.imageUrl ? blog.imageUrl : null);
+    const [category, setCategory] = useState<string>(blog.category ? blog.category.name : '');
 
     const router = useRouter();
 
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
         defaultValues: {
-            title: '',
-            content: '',
+            title: blog.title || '',
+            content: blog.content || '',
         },
     });
 
@@ -63,54 +81,48 @@ export default function BlogForm2() {
 
     const handleSubmit = async () => {
         try {
-            setLoading(true)
-            if (!file) {
-                toast({
-                    title: "Error",
-                    description: "File is required",
-                    variant: 'destructive'
-                })
-                return;
-            }
+            setLoading(true);
             const formData = new FormData();
-            formData.append('file', file);
+            if (file) {
+                formData.append('file', file);
+            }
             const values = form.getValues();
             formData.append('title', values.title);
             formData.append('content', values.content);
             formData.append('category', category);
+            formData.append('id', blog.id);
 
-            const response = await fetch('api/blog', {
-                method: 'POST',
+            const response = await fetch('/api/blog', {
+                method: 'PUT',
                 body: formData,
             });
 
-            const data = await response.json()
+            const data = await response.json();
             if (response.ok) {
                 toast({
                     title: "Success",
                     description: data.message,
-                })
+                });
                 router.push('/')
-            }
-            else {
+                    
+            } else {
                 toast({
                     title: "Error",
                     description: data.message,
-                    variant: 'destructive'
-                })
+                    variant: 'destructive',
+                });
             }
         } catch (error) {
             console.error(error);
             toast({
                 title: "Error",
                 description: "An error occurred",
-                variant: 'destructive'
-            })
+                variant: 'destructive',
+            });
+        } finally {
+            setLoading(false);
         }
-        finally {
-            setLoading(false)
-        }
-    }
+    };
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -160,30 +172,7 @@ export default function BlogForm2() {
                             <div className='my-2 w-full flex justify-center'>
                                 {previewUrl && <Image src={previewUrl} alt="File preview" width={"300"} height={"100"} />}
                             </div>
-                            {/* <div>
-                                <FormLabel>Select Category</FormLabel>
-                                <Select
-                                    onValueChange={(value) => {
-                                        setCategory(value)
-                                    }}
-                                >
-                                    <SelectTrigger className="w-[180px]">
-                                        <SelectValue placeholder="Select a Category" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectGroup>
-                                            <SelectLabel>Category</SelectLabel>
-                                            <SelectItem value="food">Food</SelectItem>
-                                            <SelectItem value="travel">Travel</SelectItem>
-                                            <SelectItem value="culture">Culture</SelectItem>
-                                            <SelectItem value="music">Music</SelectItem>
-                                            <SelectItem value="creativity">Creativity</SelectItem>
-                                            <SelectItem value="humor">Humor</SelectItem>
-                                            <SelectItem value="custom">Custom</SelectItem>
-                                        </SelectGroup>
-                                    </SelectContent>
-                                </Select>
-                            </div> */}
+
                             <div className=''>
                                 <FormLabel>Category</FormLabel>
                                 <Input
@@ -195,19 +184,15 @@ export default function BlogForm2() {
 
                             <div>
                                 <FormLabel>Content</FormLabel>
-                                <RTE name="content" control={form.control} defaultValue="" />
-
+                                <RTE name="content" control={form.control} defaultValue={blog.content} />
                             </div>
                         </div>
-                        {/* <div className="w-1/4 p-5 bg-secondary">
-                            <p className='text-2xl text-center font-bold '>Select Categories</p>
-                        </div> */}
                     </div>
                     <Button className='w-fit mt-6 ' type='submit'
                         disabled={loading}
                     >
                         {
-                            loading ? 'Creating...' : 'Create Blog'
+                            loading ? 'Updating...' : 'Update Blog'
                         }
                     </Button>
                 </form>

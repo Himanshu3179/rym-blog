@@ -15,16 +15,18 @@ import { getServerSession } from "next-auth";
 // }
 
 // model Blog {
-//   id        String    @id @default(uuid())
-//   title     String
-//   content   String
-//   imageUrl  String?
-//   author    User      @relation(fields: [authorId], references: [id])
-//   authorId  String
-//   createdAt DateTime  @default(now())
-//   updatedAt DateTime  @updatedAt
-//   likes     Like[]
-//   comments  Comment[]
+//   id         String    @id @default(uuid())
+//   title      String
+//   content    String
+//   imageUrl   String
+//   author     User      @relation(fields: [authorId], references: [id])
+//   authorId   String
+//   createdAt  DateTime  @default(now())
+//   updatedAt  DateTime  @updatedAt
+//   likes      Like[]
+//   comments   Comment[]
+//   category   Category  @relation(fields: [categoryId], references: [id])
+//   categoryId String
 // }
 
 // model Like {
@@ -44,6 +46,14 @@ import { getServerSession } from "next-auth";
 //   userId    String?
 //   content   String
 //   createdAt DateTime @default(now())
+// }
+
+// model Category {
+//   id        String   @id @default(uuid())
+//   name      String
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   blogs     Blog[]
 // }
 
 export async function getAllUsers() {
@@ -96,6 +106,21 @@ export async function getName() {
   }
 }
 
+// get userID
+
+export async function getUserId() {
+  try {
+    const user = await getUserDetails();
+    if (!user) {
+      return null;
+    }
+    return user.id;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
 export async function isAuthenticated() {
   try {
     const user = await getUserDetails();
@@ -132,6 +157,9 @@ export async function getAllBlogs() {
       orderBy: {
         createdAt: "desc",
       },
+      include: {
+        category: true,
+      },
     });
     return blogs;
   } catch (error) {
@@ -154,7 +182,16 @@ export async function getBlogById(id: string) {
           include: {
             user: true,
           },
+          orderBy: {
+            createdAt: "desc",
+          },
         },
+        likes: {
+          select: {
+            user: true,
+          },
+        },
+        category: true,
         // count likes
         _count: {
           select: {
@@ -203,5 +240,121 @@ export async function getTopBlogs() {
   } catch (error) {
     console.error(error);
     return [];
+  }
+}
+
+// get all categories
+
+export async function getAllCategories() {
+  try {
+    const categories = await db.category.findMany();
+    return categories;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
+
+// get blogs by category
+
+export async function getBlogsByCategory(category: string) {
+  try {
+    const blogs = await db.blog.findMany({
+      where: {
+        category: {
+          name: category,
+        },
+      },
+      include: {
+        category: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    return blogs;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
+
+// search blogs with query
+
+export async function searchBlogs(query: string) {
+  try {
+    const queries = query.split(" ");
+    const blogs = await db.blog.findMany({
+      where: {
+        OR: queries.map((query) => ({
+          OR: [
+            {
+              title: {
+                contains: query,
+                mode: "insensitive",
+              },
+            },
+            {
+              content: {
+                contains: query,
+                mode: "insensitive",
+              },
+            },
+            {
+              author: {
+                name: {
+                  contains: query,
+                  mode: "insensitive",
+                },
+              },
+            },
+            {
+              category: {
+                name: {
+                  contains: query,
+                  mode: "insensitive",
+                },
+              },
+            },
+          ],
+        })),
+      },
+      include: {
+        category: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    return blogs;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
+
+// is author of blog
+
+export async function isAuthorOfBlog(blogId: string) {
+  try {
+    const userId = await getUserId();
+    if (!userId) {
+      return false;
+    }
+    const blog = await db.blog.findUnique({
+      where: {
+        id: blogId,
+      },
+      select: {
+        authorId: true,
+      },
+    });
+    if (!blog) {
+      return false;
+    }
+    return blog.authorId === userId;
+  } catch (error) {
+    console.error(error);
+    return false;
   }
 }

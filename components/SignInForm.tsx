@@ -44,7 +44,7 @@ const SignInForm = () => {
                 password: values.password,
                 redirect: false
             });
-            
+
             if (signInData?.error) {
                 toast({
                     title: "Error",
@@ -85,7 +85,7 @@ const SignInForm = () => {
                                 <FormLabel>Email</FormLabel>
                                 <FormControl>
                                     <Input placeholder='mail@example.com' {...field}
-                                        className='bg-transparent/50'
+                                        className='bg-transparent/10'
                                     />
                                 </FormControl>
                                 <FormMessage />
@@ -102,7 +102,7 @@ const SignInForm = () => {
                                     <Input
                                         type='password'
                                         placeholder='Enter your password'
-                                        className='bg-transparent/50'
+                                        className='bg-transparent/10'
                                         {...field}
                                     />
                                 </FormControl>

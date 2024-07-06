@@ -72,5 +72,31 @@
     }
     body {
       @apply bg-background text-foreground;
+
+    }  
+  }
+
+  @layer utilities {
+    .reset-tailwind {
+      /* Reset Tailwind styles */
+      @apply p-0 m-0 border-none bg-transparent text-base font-normal leading-normal text-black;
+      
+      /* Apply default HTML styles */
+      line-height: normal;
+      font-size: medium;
+      color: currentColor;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      /* Reset Tailwind styles */
+      @apply p-0 m-0 border-none bg-transparent text-base font-normal leading-normal text-black;
+      
+      /* Apply default HTML styles */
+      line-height: normal;
+      font-size: medium;
+      color: currentColor;
     }
   }
+
+  
+  

@@ -15,9 +15,10 @@ const page = async () => {
                 lg:grid-cols-3
                 gap-4
             '>
-                {blogs.map((blog, index) => (
-                    <BlogCard key={index} blog={blog} />
-                ))}
+                {blogs.length === 0 ? <p className='text-center'>No blogs yet</p>
+                    : blogs.map((blog, index) => (
+                        <BlogCard key={index} blog={blog} />
+                    ))}
             </div>
         </div>
     )

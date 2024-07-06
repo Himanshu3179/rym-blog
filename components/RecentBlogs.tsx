@@ -4,7 +4,6 @@ import React from 'react'
 
 const RecentBlogs = async () => {
     const blogs = await getRecentBlogs();
-
     return (
         <div className='flex flex-col gap-5 text-indigo-900 py-7 px-3 shadow-md rounded-lg bg-white '>
             <div className='flex flex-col gap-2 font-bold'>

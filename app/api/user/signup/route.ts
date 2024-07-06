@@ -28,6 +28,21 @@ export async function POST(req: Request) {
       );
     }
 
+    // name already exists
+
+    const userByName = await db.user.findUnique({
+      where: {
+        name,
+      },
+    });
+
+    if (userByName) {
+      return NextResponse.json(
+        { message: "This name already exists" },
+        { status: 400 }
+      );
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
     await db.user.create({
       data: {

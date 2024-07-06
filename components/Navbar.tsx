@@ -13,12 +13,14 @@ const Navbar = async () => {
         <div className={`flex justify-between w-full px-5 py-2 items-center border-b-2 shadow-md
         bg-secondary/50
         `}>
-            <p className='font-bold'>News Website</p>
+            <Link
+                href='/'
+                className='font-bold'>News Website</Link>
             <div className='flex gap-5'
             >
                 <NavLinks />
                 <LoginButton />
-                
+
             </div>
         </div>
     )
