@@ -1,3 +1,4 @@
+import CategoryCarousel from '@/components/CategoryCarousel';
 import React from 'react'
 
 const layout = ({
@@ -6,7 +7,8 @@ const layout = ({
     children: React.ReactNode;
 }>) => {
     return (
-        <div className=' max-w-screen overflow-hidden '>
+        <div className=' max-w-screen overflow-hidden pt-10'>
+            <CategoryCarousel />
             {children}
         </div>
     )

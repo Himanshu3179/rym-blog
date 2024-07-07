@@ -83,7 +83,7 @@ const BlogInteractionButtons = (
 
 
     return (
-        <div className='flex justify-between max-w-lg w-full mx-auto bg-secondary p-5 rounded-full'>
+        <div className='flex justify-between max-w-lg w-full mx-auto bg-primary/10 shadow-lg p-5 rounded-full'>
             <div className='flex gap-5'>
                 <div className='flex gap-2'>
                     <Heart size={20}
@@ -112,7 +112,7 @@ const BlogInteractionButtons = (
                 <span>5 min read</span>
             </div>
             <div className='flex gap-5'>
-                <BookmarkPlus size={20} />
+                {/* <BookmarkPlus size={20} /> */}
                 <ExternalLink size={20}
                     onClick={handleCopy}
                     className='cursor-pointer

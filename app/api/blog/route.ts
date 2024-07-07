@@ -36,7 +36,6 @@ const requestBodySchema = z.object({
   category: z.string().min(1, "Category is required"),
 });
 export async function POST(req: Request) {
-  
   try {
     const formData = await req.formData();
 
@@ -101,7 +100,7 @@ export async function POST(req: Request) {
     });
 
     if (!category) {
-      // if category have spaces replace with hyphen and convert to lowercase
+      // create one
       const categoryName = validatedData.data.category
         .toLowerCase()
         .trim()
@@ -190,7 +189,9 @@ export async function PUT(req: Request) {
 
       // Delete existing image from S3 if it exists
       if (imageUrl) {
-        const imageKey = imageUrl.split(`${process.env.AWS_BUCKET}.s3.amazonaws.com/`)[1];
+        const imageKey = imageUrl.split(
+          `${process.env.AWS_BUCKET}.s3.amazonaws.com/`
+        )[1];
         if (imageKey) {
           const deleteParams = {
             Bucket: process.env.AWS_BUCKET as string,

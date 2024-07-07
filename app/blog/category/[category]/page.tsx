@@ -6,7 +6,7 @@ const CategoryPage = async (
 ) => {
     const blogs = await getBlogsByCategory(params.category)
     return (
-        <div className='w-full py-10 px-5 flex flex-col gap-5 bg-secondary '>
+        <div className='w-full py-10 px-5 flex flex-col gap-5  '>
             <p className='text-center text-4xl '>#{params.category}</p>
             <div className='w-fit
             grid

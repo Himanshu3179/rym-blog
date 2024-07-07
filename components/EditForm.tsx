@@ -134,7 +134,7 @@ export default function EditForm(
 
 
     return (
-        <div className='border p-5 rounded-lg bg-white w-3/4 mx-auto'>
+        <div className='border p-5 rounded-lg bg-white lg:w-3/4 w-full mx-auto'>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className='w-full'>
                     <div className="flex gap-5">

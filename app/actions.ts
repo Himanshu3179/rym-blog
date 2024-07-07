@@ -247,7 +247,11 @@ export async function getTopBlogs() {
 
 export async function getAllCategories() {
   try {
-    const categories = await db.category.findMany();
+    const categories = await db.category.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
     return categories;
   } catch (error) {
     console.error(error);

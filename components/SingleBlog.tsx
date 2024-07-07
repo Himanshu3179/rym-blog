@@ -50,7 +50,7 @@ const SingleBlog = async (
             </div>
             <Image src={blog.imageUrl} alt={blog.title} width={1000} height={400} className='rounded-lg' />
             <Badge className='bg-indigo-900 w-fit'>{blog.category.name}</Badge>
-            <div className='reset-tailwind '>{parse(blog.content)}</div>
+            <div className=''>{parse(blog.content)}</div>
             <BlogInteractionButtons
                 blog={blog}
                 userId={userId}

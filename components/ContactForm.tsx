@@ -23,7 +23,9 @@ const FormSchema = z.object({
     message: z.string().min(1, 'Message is required'),
 });
 
-const ContactForm = () => {
+const ContactForm = (
+    { heading }: { heading?: string }
+) => {
     const { toast } = useToast()
     const router = useRouter()
     const form = useForm<z.infer<typeof FormSchema>>({
@@ -66,9 +68,11 @@ const ContactForm = () => {
     };
 
     return (
-        <div className="bg-secondary border shadow-xl p-4 rounded-lg max-w-md w-full">
+        <div className="bg-secondary/70 border shadow-xl p-4 rounded-lg max-w-md w-full">
             <Form {...form} >
-                <h1 className='text-2xl font-bold mb-5 text-center'>Give Feedback</h1>
+                <h1 className='text-2xl font-bold mb-5 text-center'>
+                    {heading || 'Give Feedback'}
+                </h1>
                 <form onSubmit={form.handleSubmit(onSubmit)} className='w-full'>
                     <div className='space-y-2'>
                         <FormField

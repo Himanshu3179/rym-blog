@@ -28,7 +28,7 @@ const SearchInput = () => {
 
     return (
         <form className="relative" onSubmit={handleSearch}>
-            <input type="text" className="py-4 px-5 pr-12 rounded-full bg-white shadow-md w-full" placeholder="Search"
+            <input type="text" className="py-4 px-5 pr-12 rounded-full bg-white/50 shadow-md w-full" placeholder="Search"
                 name="search"
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}

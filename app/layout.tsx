@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import { Toaster } from "@/components/ui/toaster";
 import BreadCrumb from "@/components/BreadCrumb";
 import Footer from "@/components/Footer";
+import Background from "@/components/Background";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,6 +23,7 @@ export default function RootLayout({
     <html lang="en" className="light">
       <body className={inter.className}>
         <div className="min-h-screen  max-w-screen overflow-hidden relative ">
+          <Background />
           <Navbar />
           {children}
         </div>

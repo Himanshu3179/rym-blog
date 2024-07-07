@@ -23,12 +23,7 @@ interface BlogProps {
 const BlogCard = (
     { blog, blogId }: { blog?: BlogProps, blogId?: string }
 ) => {
-
-    // either blog or blogId is required
-
-    // if blog is not provided, fetch blog by blogId
-
-    if (!blog && !blogId) {
+if (!blog && !blogId) {
         return null;
     }
 
@@ -50,9 +45,9 @@ const BlogCard = (
             className='
             max-w-md w-full rounded-lg flex flex-col
             max-h-[500px] h-full
-            mb-20            
+            
         '>
-            <div className='relative rounded-2xl overflow-hidden'>
+            <div className='relative rounded-3xl overflow-hidden'>
                 <Image
                     src={blog.imageUrl}
                     alt={blog.title}
@@ -67,17 +62,29 @@ const BlogCard = (
                     '
                 />
             </div>
-            <div className='mt-5'>
+            <div className='mt-5' />
+            <div className='flex justify-between items-center'>
                 <Badge className='bg-indigo-900'>
                     {blog.category.name}
                 </Badge>
-                <p className='text-xl font-bold mb-2 
-                    hover:text-indigo-900
-                '>{blog.title.substring(0, 50)}{' ...'}</p>
+                <p className=' text-sm font-semibold text-muted-foreground'>
+                    {blog.createdAt.toDateString()}
+                </p>
             </div>
-            <p className=' text-sm font-semibold text-muted-foreground'>
-                {blog.createdAt.toDateString()}
-            </p>
+            <p className='text-xl font-bold 
+                    hover:text-indigo-900
+                    line-clamp-2
+                '>{blog.title}{' ...'}</p>
+
+
+            {/* dangerouslyhtml */}
+            <div
+                className='text-sm text-muted-foreground
+                line-clamp-2
+                '
+                dangerouslySetInnerHTML={{ __html: blog.content }}
+            />
+
         </Link>
     )
 }

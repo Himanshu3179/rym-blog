@@ -16,27 +16,32 @@ const TopBlogs = async () => {
     )
 
     return (
-        <div className='flex flex-col gap-5 text-indigo-900 py-7 px-3 shadow-md rounded-lg bg-white '>
+        <div className='flex flex-col gap-5 text-black py-7 px-3 shadow-md rounded-lg 
+            bg-indigo-200
+        '>
             <p className='text-2xl text-center font-bold '>Top Blogs</p>
             <div className='flex flex-col gap-2 font-bold'>
                 {
                     blogs.map((blog, i) => (
-                        <Link
-                            href={`/blog/${blog.id}`}
-                            key={i} className='flex gap-5
+                        <>
+                            <Link
+                                href={`/blog/${blog.id}`}
+                                key={i} className='flex gap-5
                         py-2 px-4 rounded-lg 
-                        hover:bg-secondary 
+                        hover:bg-secondary
                         transition-all
                         '>
-                            <p className='text-3xl'>{i + 1}</p>
-                            <div>
-                                <p>{blog.title.substring(0, 50)}{'...'}</p>
-                                <p className='text-sm text-muted-foreground font-semibold'>{blog.createdAt.toDateString()}</p>
-                            </div>
-                            <Image src={blog.imageUrl} alt={blog.title} width={100} height={50}
-                                className='rounded-lg ml-auto h-[50px] object-cover'
-                            />
-                        </Link>
+                                <p className='text-3xl'>{i + 1}</p>
+                                <div>
+                                    <p className='line-clamp-2'>{blog.title}{'...'}</p>
+                                    <p className='text-sm text-muted-foreground font-semibold'>{blog.createdAt.toDateString()}</p>
+                                </div>
+                                <Image src={blog.imageUrl} alt={blog.title} width={100} height={50}
+                                    className='rounded-lg ml-auto h-[50px]  object-cover'
+                                />
+                            </Link>
+                            <hr />
+                        </>
                     ))
                 }
             </div>

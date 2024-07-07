@@ -11,8 +11,6 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-
-
 export async function LoginButton() {
     const name = await getName();
     if (!name) {
