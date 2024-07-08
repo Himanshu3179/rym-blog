@@ -7,7 +7,6 @@ export default function RTE({ name, control, defaultValue = "" }:
     { name: string, control: any, defaultValue: string }) {
     return (
         <div className='w-full'>
-
             <Controller
                 name={name || "content"}
                 control={control}

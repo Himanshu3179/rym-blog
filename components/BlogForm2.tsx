@@ -1,15 +1,7 @@
 "use client"
 import React, { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -28,7 +20,7 @@ import { useToast } from "./ui/use-toast";
 import { useRouter } from "next/navigation";
 import Tiptap from "./TipTap";
 import RTE from "./RTE";
-
+import categories from "@/lib/data/categories";
 
 const FormSchema = z.object({
     title: z.string().min(1, 'Title is required').max(300, 'Title is too long, Only 300 characters allowed'),
@@ -43,9 +35,11 @@ export default function BlogForm2() {
     const { toast } = useToast()
     const [loading, setLoading] = useState(false)
     const [file, setFile] = useState<File | null>(null);
-
+    const [customCategory, setCustomCategory] = useState('');
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
     const [category, setCategory] = useState<string>('');
+
+
 
     const router = useRouter();
 
@@ -72,12 +66,15 @@ export default function BlogForm2() {
                 })
                 return;
             }
+            const finalCategory = category === "other" ? customCategory : category;
+            console.log('finalCategory', finalCategory);
+            console.log('category', category);
             const formData = new FormData();
             formData.append('file', file);
             const values = form.getValues();
             formData.append('title', values.title);
             formData.append('content', values.content);
-            formData.append('category', category);
+            formData.append('category', finalCategory);
 
             const response = await fetch('api/blog', {
                 method: 'POST',
@@ -121,8 +118,9 @@ export default function BlogForm2() {
     };
 
 
+
     return (
-        <div className='border p-5 rounded-lg bg-white lg:w-3/4 w-full   mx-auto'>
+        <div className='border p-5 rounded-lg bg-white/50 lg:w-3/4 w-full   mx-auto'>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className='w-full'>
                     <div className="flex gap-5">
@@ -142,9 +140,6 @@ export default function BlogForm2() {
                                     </FormItem>
                                 )}
                             />
-
-
-
                             <div className='space-y-2'>
                                 <FormLabel>Image</FormLabel>
                                 <input
@@ -160,39 +155,35 @@ export default function BlogForm2() {
                             <div className='my-2 w-full flex justify-center'>
                                 {previewUrl && <Image src={previewUrl} alt="File preview" width={"300"} height={"100"} />}
                             </div>
-                            {/* <div>
+                            <div>
                                 <FormLabel>Select Category</FormLabel>
-                                <Select
-                                    onValueChange={(value) => {
-                                        setCategory(value)
+                                {/* drop down */}
+                                <select
+                                    className='w-full p-2 rounded-md bg-transparent/10'
+                                    onChange={(e) => {
+                                        console.log("hello")
+                                        setCategory(e.target.value)
                                     }}
                                 >
-                                    <SelectTrigger className="w-[180px]">
-                                        <SelectValue placeholder="Select a Category" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectGroup>
-                                            <SelectLabel>Category</SelectLabel>
-                                            <SelectItem value="food">Food</SelectItem>
-                                            <SelectItem value="travel">Travel</SelectItem>
-                                            <SelectItem value="culture">Culture</SelectItem>
-                                            <SelectItem value="music">Music</SelectItem>
-                                            <SelectItem value="creativity">Creativity</SelectItem>
-                                            <SelectItem value="humor">Humor</SelectItem>
-                                            <SelectItem value="custom">Custom</SelectItem>
-                                        </SelectGroup>
-                                    </SelectContent>
-                                </Select>
-                            </div> */}
-                            <div className=''>
-                                <FormLabel>Category</FormLabel>
-                                <Input
-                                    placeholder='Enter category...'
-                                    value={category}
-                                    onChange={(e) => setCategory(e.target.value)}
-                                />
+                                    {
+                                        categories.map((category, index) => (
+                                            <option key={index} value={category}>{category}</option>
+                                        ))
+                                    }
+                                </select>
                             </div>
-
+                            {
+                                category === "other" && (
+                                    <div className=''>
+                                        <FormLabel>Custom Category</FormLabel>
+                                        <Input
+                                            placeholder='Enter category...'
+                                            value={customCategory}
+                                            onChange={(e) => setCustomCategory(e.target.value)}
+                                        />
+                                    </div>
+                                )
+                            }
                             <div>
                                 <FormLabel>Content</FormLabel>
                                 <RTE name="content" control={form.control} defaultValue="" />
@@ -212,6 +203,6 @@ export default function BlogForm2() {
                     </Button>
                 </form>
             </Form>
-        </div>
+        </div >
     );
 }

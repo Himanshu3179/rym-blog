@@ -1,167 +1,109 @@
+import { buttonVariants } from '@/components/ui/button'
+import { ChevronsRight } from 'lucide-react'
+import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
-import './aboutPage.css'
 
 const page = () => {
   return (
-    <div className="about">
-      <h1>About Us</h1>
-      <p>Welcome to [Your Blog Name]!</p>
-      <p>
-        At [Your Blog Name], we believe in the power of stories and the impact
-        of sharing knowledge. Our blog is a diverse space where personal
-        experiences meet professional expertise, offering our readers a rich
-        blend of content designed to inspire, inform, and entertain.
-      </p>
+    <div className='  flex flex-col gap-'>
+      <div className='lg:px-20 px-5 py-10 flex lg:flex-row flex-col lg:gap-20 items-center 
+        gap-10
+      '>
+        <div className='lg:w-2/3 flex flex-col lg:gap-10 gap-5'>
+          <p className='text-5xl font-bold'>
+            Welcome to Our Blog
+          </p>
+          <p className='text-xl text-muted-foreground'>
+            Explore a wealth of insights and perspectives from our team of expert writers. Our blog covers a wide range of topics, from industry trends to personal growth, all designed to inspire and inform our readers.
+          </p>
+        </div>
+        <div className='lg:w-1/3'>
+          <Image
+            src={'/image.png'}
+            alt='image'
+            height={500}
+            width={400}
+            className='rounded-lg'
+          />
+        </div>
+      </div>
 
-      <h2>Our Mission</h2>
-      <p>
-        Our mission is to create a community where readers can find valuable
-        insights, share their own experiences, and engage in meaningful
-        discussions. We aim to provide high-quality content that covers a wide
-        range of topics, from personal stories and how-to guides to product
-        reviews and opinion pieces.
-      </p>
+      {/* Our Focus Areas*/}
 
-      <div className="testimonial-container">
-        <div className="testimonial-content">
-          <h2 className="testimonial-title">Meet the Team</h2>
-          <div className="testimonial-grid">
-            <div className="testimonial-card">
-              <div className="testimonial-avatar">
-                <img src="image.png" alt="Your Name" />
-              </div>
-              <div className="testimonial-details">
-                <h3 className="testimonial-name">[Your Name]</h3>
-                <p className="testimonial-desc"><em>Founder & Chief Editor</em></p>
-                <div className="testimonial-text">
-                  As the founder of [Your Blog Name], I started this blog with a passion
-                  for storytelling and a desire to connect with like-minded individuals.
-                  With a background in [Your Background], I bring a unique perspective
-                  to the blog, ensuring that our content is both engaging and
-                  informative.
-                </div>
-              </div>
-            </div>
-            <div className="testimonial-card">
-              <div className="testimonial-avatar">
-                <img src="image.png" alt="Team Member Name" />
-              </div>
-              <div className="testimonial-details">
-                <h3 className="testimonial-name">[Team Member Name]</h3>
-                <p className="testimonial-desc"><em>Content Writer & Researcher</em></p>
-                <div className="testimonial-text">
-                  With a keen eye for detail and a knack for research, [Team Member
-                  Name] is our go-to person for in-depth articles and insightful guides.
-                  Their expertise in [Team Member&#39;s Expertise] ensures that our readers
-                  always get accurate and up-to-date information.
-                </div>
-              </div>
-            </div>
-            <div className="testimonial-card">
-              <div className="testimonial-avatar">
-                <img src="image.png" alt="Team Member Name" />
-                <img src="image.png" alt="Team Member Name" />
-                <img src="image.png" alt="Team Member Name" />
-                <img src="image.png" alt="Team Member Name" />
-                <img src="image.png" alt="Team Member Name" />
-                <img src="image.png" alt="Team Member Name" />
-              </div>
-              <div className="testimonial-details">
-                <h3 className="testimonial-name">[Team Member Name]</h3>
-                <p className="testimonial-desc"><em>Guest Contributor</em></p>
-                <div className="testimonial-text">
-                  We are thrilled to have [Team Member Name] as a regular guest
-                  contributor. Their diverse experiences and unique voice add depth and
-                  variety to our content, enriching the blog with fresh perspectives.
-                </div>
-              </div>
-            </div>
+      <div className="flex lg:flex-row flex-col 
+      lg:px-20 px-5 py-10 bg-white/60
+      gap-10 items-center
+      ">
+        <div className='lg:w-1/2 flex flex-col gap-10'>
+          <p className='text-4xl font-bold'>
+            Our Focus Areas
+          </p>
+          <p className='text-xl text-muted-foreground'>
+            Our blog covers a wide range of topics, from technology and business to personal development and lifestyle. We&#39;re passionate about sharing insights and practical advice to help our readers grow and succeed.
+          </p>
+        </div>
+
+        <div className='lg:w-1/2 flex flex-col gap-5'>
+          <div className='flex flex-col gap-1'>
+            <p className='text-2xl font-bold'>
+              Technology
+            </p>
+            <p className='text-lg text-muted-foreground'>
+              Stay up-to-date with the latest trends and innovations in the tech industry.</p>
+          </div>
+
+          <div className='flex flex-col gap-1'>
+            <p className='text-2xl font-bold'>
+              Business
+            </p>
+            <p className='text-lg text-muted-foreground'>
+              Discover strategies and insights to help your business thrive.</p>
+          </div>
+
+          <div className='flex flex-col gap-1'>
+            <p className='text-2xl font-bold'>
+              Personal Growth
+            </p>
+            <p className='text-lg text-muted-foreground'>
+              Explore topics that can help you unlock your full potential.</p>
+          </div>
+
+          <div className='flex flex-col gap-1'>
+            <p className='text-2xl font-bold'>
+              Lifestyle
+            </p>
+            <p className='text-lg text-muted-foreground'>
+              Get inspired by articles on health, wellness, and more.</p>
+
           </div>
         </div>
       </div>
 
-      <h2>What We Offer</h2>
-      <div className="faq">
-        <ul className="accordion">
-          <li>
-            <input type="radio" name="accordion" id="first" />
-            <label htmlFor="first">Personal Stories</label>
-            <div className="content">
-              <p>Our personal stories section is
-                filled with real-life experiences, anecdotes, and reflections that
-                resonate with our readers on a personal level.
-              </p>
-            </div>
-          </li>
 
-          <li>
-            <input type="radio" name="accordion" id="second" />
-            <label htmlFor="second">How To Guides</label>
-            <div className="content">
-              <p>From DIY projects to tech tutorials,
-                our how-to guides are designed to help you navigate through various
-                tasks with ease.
-              </p>
-            </div>
-          </li>
+      {/* Explore Our Blog */}
+      <div className='lg:px-20 px-5 py-10 flex flex-col gap-10 items-center '>
+        <p className='text-4xl font-bold text-center'>
+          Explore Our Blog
+        </p>
+        <p className='text-lg text-muted-foreground text-center'>
+          Our blog is a treasure trove of insights and inspiration.
+          <br />
+          Browse through our latest articles and discover content that resonates with you.
+        </p>
 
-          <li>
-            <input type="radio" name="accordion" id="third" />
-            <label htmlFor="third">Product Reviews</label>
-            <div className="content">
-              <p> Honest and comprehensive reviews
-                of products related to our blog’s niche, helping you make informed
-                decisions.
-              </p>
-            </div>
-          </li>
+        <Link href='/allblogs'
+          className={`${buttonVariants({ variant: 'default' })}`}
+        >
+          Explore Blogs <ChevronsRight />
+        </Link>
 
-          <li>
-            <input type="radio" name="accordion" id="fourth" />
-            <label htmlFor="fourth">Opinion Pieces</label>
-            <div className="content">
-              <p> Our opinion pieces reflect our
-                thoughts on current events, industry trends, and various topics that
-                matter to us and our readers.
-              </p>
-            </div>
-          </li>
-
-          <li>
-            <input type="radio" name="accordion" id="fifth" />
-            <label htmlFor="fifth">Guest Post</label>
-            <div className="content">
-              <p>  We welcome contributions from guest
-                writers, providing diverse viewpoints and expanding the breadth of
-                our content.
-              </p>
-            </div>
-          </li>
-        </ul>
       </div>
 
-      <h2>Join Our Community</h2>
-      <p>
-        We invite you to become a part of our growing community. Subscribe to
-        our newsletter to stay updated with the latest posts, leave comments
-        to share your thoughts, and follow us on social media to connect with
-        us and other readers.
-      </p>
 
-      <p>
-        Thank you for visiting [Your Blog Name]. We hope you enjoy your stay
-        and find our content valuable and inspiring!
-      </p>
-
-      <p>Warm regards,</p>
-
-      <p>
-        [Your Name]
-        <br />
-        Founder & Chief Editor, [Your Blog Name]
-      </p>
-    </div>
+    </div >
   )
 }
 
 export default page
+

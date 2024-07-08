@@ -15,19 +15,24 @@ export async function LoginButton() {
     const name = await getName();
     if (!name) {
         return (
-            <div>
-                <Link
-                    href="/signin"
-                    className={`${buttonVariants({ variant: 'default' })}`}
-                >
-                    Sign In
-                </Link>
-            </div>
+            <Link
+                href="/signin"
+                className={`${buttonVariants({ variant: 'default' })}
+                    focus:ring-0
+                    focus:outline-none
+                    focus:ring-transparent
+                    focus:ring-offset-transparent
+                    
+                `}
+            >
+                Sign In
+            </Link>
+
         )
     }
 
     return (
-        <div>
+        <div className=''>
             <DropdownMenu>
                 <DropdownMenuTrigger>
                     <div className="rounded-full w-12 h-12 bg-white text-black flex justify-center items-center">

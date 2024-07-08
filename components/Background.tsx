@@ -4,7 +4,7 @@ const Background = () => {
     return (
         <>
             <div
-                className='fixed -z-20 bg-rose-500 
+                className='fixed -z-20 bg-rose-600 
                 w-52 h-52
                 top-1/2 left-1/2
                 transform -translate-x-1/2 -translate-y-1/2
@@ -14,7 +14,7 @@ const Background = () => {
                 '
             />
             <div
-                className='fixed -z-10 bg-red-500
+                className='fixed -z-10 bg-red-600
                 w-72 h-72
                 top-0 left-0
             rounded-full
@@ -24,7 +24,7 @@ const Background = () => {
 
 
             <div
-                className='fixed  -z-10 bg-blue-500
+                className='fixed  -z-10 bg-blue-600
                 w-72 h-72
             bottom-0 right-0
             rounded-full

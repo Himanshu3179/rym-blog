@@ -26,12 +26,14 @@ const Footer = () => {
     },
   ]
   return (
-    <div className="flex flex-col md:flex-row gap-10 bg-primary/20 justify-evenly items-center px-4 md:px-10 py-20 md:py-10">
-      
-        <ContactForm />
-      
+    <div className="flex flex-col md:flex-row gap-10  justify-evenly items-center px-4 md:px-10 py-20 md:py-10
+       bg-gradient-to-r from-purple-500/50 via-pink-500/50 to-red-500/50
+    ">
+
+      <ContactForm />
+
       <div className={`flex flex-col justify-between items-center gap-10`}>
-        <div className="text-3xl font-semibold">
+        <div className="text-3xl font-semibold text-black">
           Blogging Website
         </div>
         <div className="flex gap-5">

@@ -119,13 +119,15 @@ const ProfileForm = () => {
 
 
     return (
-        <div className="p-5 max-w-lg border mx-auto w-full bg-secondary/50">
+        <div className="p-5 max-w-lg border mx-auto w-full 
+            bg-gradient-to-br from-purple-200 via-pink-200 to-red-200
+        ">
             <h1 className='text-2xl font-semibold mb-4 mx-auto w-fit'>Profile</h1>
             <Form {...form}>
 
                 <form onSubmit={form.handleSubmit(onSubmit)} className='w-full'>
                     <div className='space-y-2'>
-                        <div className='bg-white text-black font-bold  p-5 rounded-full w-20 h-20
+                        <div className='bg-white text-black border border-black font-bold  p-5 rounded-full w-20 h-20
                             flex items-center justify-center 
                             mx-auto
                         '>
@@ -138,7 +140,8 @@ const ProfileForm = () => {
                                 <FormItem>
                                     <FormLabel>Name</FormLabel>
                                     <FormControl>
-                                        <Input placeholder='Your name' {...field} className='' />
+                                        <Input placeholder='Your name' {...field} readOnly
+                                            className=' text-muted-foreground cursor-not-allowed' />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>

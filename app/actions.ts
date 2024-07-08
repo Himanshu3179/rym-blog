@@ -1,7 +1,7 @@
 import { NextAuthOptions } from "@/lib/authOptions";
 import db from "@/lib/db";
 import { getServerSession } from "next-auth";
-
+import categories from "@/lib/data/categories";
 // model User {
 //   id        String    @id @default(uuid())
 //   email     String    @unique
@@ -243,46 +243,52 @@ export async function getTopBlogs() {
   }
 }
 
-// get all categories
-
-export async function getAllCategories() {
-  try {
-    const categories = await db.category.findMany({
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
-    return categories;
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
-}
-
 // get blogs by category
 
 export async function getBlogsByCategory(category: string) {
   try {
-    const blogs = await db.blog.findMany({
-      where: {
-        category: {
-          name: category,
+    let blogs;
+    if (category === "other") {
+      // Exclude blogs that belong to any category in the categories array
+      blogs = await db.blog.findMany({
+        where: {
+          NOT: {
+            category: {
+              name: {
+                in: categories, // Use the imported categories array
+              },
+            },
+          },
         },
-      },
-      include: {
-        category: true,
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
+        include: {
+          category: true,
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+    } else {
+      // Original logic to get blogs by a specific category
+      blogs = await db.blog.findMany({
+        where: {
+          category: {
+            name: category,
+          },
+        },
+        include: {
+          category: true,
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+    }
     return blogs;
   } catch (error) {
     console.error(error);
     return [];
   }
 }
-
 // search blogs with query
 
 export async function searchBlogs(query: string) {

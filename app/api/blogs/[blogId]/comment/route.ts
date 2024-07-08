@@ -5,10 +5,7 @@ export async function POST(req: Request, context: any) {
   const { comment } = await req.json();
   const userId = await getUserId();
   if (!userId) {
-    return {
-      status: 401,
-      body: { message: "You need to login first" },
-    };
+    return NextResponse.json({ message: "You must be logged in to comment" }, { status: 401 });
   }
 
   const { blogId } = context.params;

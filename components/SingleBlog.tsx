@@ -9,6 +9,10 @@ import Link from 'next/link';
 import DeleteBlogButton from './DeleteBlogButton';
 import parse from 'html-react-parser';
 
+import { Inconsolata } from 'next/font/google';
+
+
+const inconsolata = Inconsolata({ subsets: ["latin"] });
 
 const SingleBlog = async (
     { blogId }: { blogId: string }
@@ -49,7 +53,19 @@ const SingleBlog = async (
                 </div>
             </div>
             <Image src={blog.imageUrl} alt={blog.title} width={1000} height={400} className='rounded-lg' />
-            <Badge className='bg-indigo-900 w-fit'>{blog.category.name}</Badge>
+            <Link
+                href={`/blog/category/${blog.category.name.toLowerCase()}`}
+                className=''
+            >
+                <Badge className={`bg-rose-500
+                    hover:bg-rose-600
+                    w-fit
+                    transition-all
+                        ${inconsolata.className}
+                        `}>
+                    {blog.category.name}
+                </Badge>
+            </Link>
             <div className=''>{parse(blog.content)}</div>
             <BlogInteractionButtons
                 blog={blog}

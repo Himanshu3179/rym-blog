@@ -6,7 +6,7 @@ import { buttonVariants } from '@/components/ui/button'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-import React from 'react'
+import React, { Suspense } from 'react'
 import useSWR from 'swr'
 
 interface Blog {
@@ -32,14 +32,12 @@ const fetchBlogs = async (url: string) => {
     return res.json()
 }
 
-const SearchPage = () => {
+const SearchPageContent = (
+    { searchQuery }: { searchQuery: string }
+) => {
 
-    const searchParams = useSearchParams();
-    const searchQuery = searchParams ? searchParams.get('query') : null;
     const encodedQuery = encodeURIComponent(searchQuery || '');
-
     const { data: blogs, isLoading } = useSWR(`/api/search?query=${encodedQuery}`, fetchBlogs)
-
     return (
         <div>
             {
@@ -52,7 +50,6 @@ const SearchPage = () => {
                                 </h1>
                                     :
                                     <h1 className="text-2xl text-center mb-10">Search Results</h1>
-
                             }
                             <div className='w-fit
                                 grid
@@ -68,36 +65,50 @@ const SearchPage = () => {
                                             href={`/blog/${blog.id}`}
                                             className='
                                             max-w-md w-full rounded-lg flex flex-col
-                                            max-h-[500px] h-full
-                                            pb-20
+                                            max-h-[500px] h-full            
+                                            p-[2px]
                                             
-                                            '>
-                                            <div className='relative rounded-2xl overflow-hidden'>
-                                                <Image
-                                                    src={blog.imageUrl}
-                                                    alt={blog.title}
-                                                    width={400}
-                                                    height={200}
-                                                    className='rounded-2xl w-full object-cover h-[200px] z-20
-                                                    transition-transform
-                                                    transform
-                                                    hover:scale-110
-                                                    duration-200
-                                                    group-hover:scale-105
+                                            bg-gradient-to-r from-purple-300 via-pink-300 to-red-300
+                                        '>
+                                            <div className='p-5 rounded-lg bg-white/60 w-full h-full'>
+                                                <div className='relative  overflow-hidden rounded-lg'>
+                                                    <Image
+                                                        src={blog.imageUrl}
+                                                        alt={blog.title}
+                                                        width={400}
+                                                        height={200}
+                                                        className=' w-full rounded-lg object-cover h-[200px] z-20
+                                                            transition-transform
+                                                            transform
+                                                            hover:scale-110
+                                                            duration-200
+                                                            group-hover:scale-105
+                                                            
+                                                            '
+                                                    />
+                                                </div>
+                                                <div className='mt-5' />
+                                                <div className='flex justify-between items-center'>
+                                                    <Badge className='bg-rose-500'>
+                                                        {blog.category.name}
+                                                    </Badge>
+                                                    <p className=' text-sm font-semibold text-muted-foreground'>
+                                                        {new Date(blog.createdAt).toDateString()}
+                                                    </p>
+                                                </div>
+                                                <p className='text-xl font-bold 
+                                                        my-2
+                                                        hover:text-indigo-900
+                                                        line-clamp-2
+                                                    '>{blog.title}{' ...'}</p>
+
+                                                <div
+                                                    className='text-sm text-muted-foreground
+                                                    line-clamp-2                
                                                     '
+                                                    dangerouslySetInnerHTML={{ __html: blog.content }}
                                                 />
                                             </div>
-                                            <div className='mt-5'>
-                                                <Badge className='bg-indigo-900'>
-                                                    {blog.category.name}
-                                                </Badge>
-                                                <p className='text-xl font-bold mb-2 
-                                                hover:text-indigo-900
-                                            '>{blog.title.substring(0, 50)}{' ...'}</p>
-                                            </div>
-                                            <p className=' text-sm font-semibold text-muted-foreground'>
-                                                {new Date(blog.createdAt).toDateString()}
-                                            </p>
                                         </Link>
                                     ))
                                 }
@@ -114,6 +125,21 @@ const SearchPage = () => {
             }
         </div>
     )
+
+
+}
+
+const SearchPage = () => {
+    const searchParams = useSearchParams();
+    const searchQuery = searchParams ? searchParams.get('query') ?? '' : '';
+
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <SearchPageContent
+                searchQuery={searchQuery}
+            />
+        </Suspense>
+    );
 }
 
 export default SearchPage

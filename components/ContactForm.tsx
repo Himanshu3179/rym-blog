@@ -48,7 +48,10 @@ const ContactForm = (
                     variant: 'default'
                 })
                 // reset form after submission
-                form.reset()
+                form.reset({
+                    subject: '', // Reset subject to empty string
+                    message: '', // Reset message to empty string
+                });
                 router.push('/')
             }
             else {

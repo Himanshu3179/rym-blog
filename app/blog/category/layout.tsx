@@ -7,7 +7,7 @@ const layout = ({
     children: React.ReactNode;
 }>) => {
     return (
-        <div className=' max-w-screen overflow-hidden pt-10'>
+        <div className=' max-w-screen overflow-hidden pt-10 lg:px-20 px-5'>
             <CategoryCarousel />
             {children}
         </div>
