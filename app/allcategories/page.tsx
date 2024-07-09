@@ -13,7 +13,6 @@ const page = () => {
         "bg-green-300",
         "bg-yellow-300",
         "bg-purple-300",
-        // 1 more color
         "bg-pink-300",
     ]
     return (
@@ -21,7 +20,7 @@ const page = () => {
             w-full 
         '>
             <p
-                className='mx-auto text-2xl text-center font-bold'
+                className='mx-auto text-2xl text-center font-bold '
             >All Categories</p>
             <div
                 className='

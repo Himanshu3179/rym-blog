@@ -29,7 +29,9 @@ const FormSchema = z.object({
 });
 
 
-export default function BlogForm2() {
+export default function BlogForm2(
+    { apiKey }: { apiKey: string }
+) {
 
 
     const { toast } = useToast()
@@ -186,7 +188,9 @@ export default function BlogForm2() {
                             }
                             <div>
                                 <FormLabel>Content</FormLabel>
-                                <RTE name="content" control={form.control} defaultValue="" />
+                                <RTE name="content" control={form.control} defaultValue=""
+                                    apiKey={apiKey}
+                                />
 
                             </div>
                         </div>

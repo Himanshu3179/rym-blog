@@ -8,7 +8,7 @@ const page = async (
 ) => {
 
     return (
-        <div className='w-full py-10 px-5  gap-5
+        <div className='w-full py-10 px-3 lg:px-5  gap-5
             flex 
             xl:flex-row
             flex-col
@@ -24,7 +24,7 @@ const page = async (
             <div className='
             lg:w-1/3            
             w-full
-            p-5 rounded-lg flex flex-col gap-5'>
+             rounded-lg flex flex-col gap-5'>
                 <p className='text-2xl text-center font-bold text-indigo-950'>Read Other Blogs</p>
                 <RecentBlogs
                     exceptId={params.id}

@@ -25,7 +25,7 @@ const CategoryCarousel = async () => {
     return (
         <div className='w-full px-10 relative'>
             <p
-                className='mx-auto text-2xl text-center mb-5 font-bold'
+                className='text-2xl md:text-center mb-5 font-bold'
             >All Categories</p>
             <Carousel className="">
                 <CarouselContent className="-ml-1">
@@ -56,10 +56,10 @@ const CategoryCarousel = async () => {
                 href="/allcategories"
                 className='
                 absolute
-                right-3 top-1 rounded-full
-                bg-blue-500/40
+                right-3 top-0 rounded-full
                 text-center
-                px-3 py-2
+                bg-blue-500/50
+                px-3 py-1
                 text-indigo-900
                 hover:text-indigo-700
                 hover:underline

@@ -54,7 +54,7 @@ interface BlogProps {
 }
 
 export default function EditForm(
-    { blog }: { blog: BlogProps }
+    { blog, apiKey }: { blog: BlogProps, apiKey: string }
 ) {
 
 
@@ -186,7 +186,7 @@ export default function EditForm(
 
                             <div>
                                 <FormLabel>Content</FormLabel>
-                                <RTE name="content" control={form.control} defaultValue={blog.content} />
+                                <RTE name="content" control={form.control} defaultValue={blog.content} apiKey={apiKey} />
                             </div>
                         </div>
                     </div>

@@ -6,6 +6,8 @@ import Link from 'next/link'
 import { buttonVariants } from '@/components/ui/button'
 
 const page = async () => {
+    const TinyMCE_API_KEY = process.env.TinyMCE_API_KEY as string
+    
     const authenticated = await isAuthenticated()
     if (!authenticated) {
 
@@ -21,7 +23,9 @@ const page = async () => {
     return (
         <div className='w-full py-10 px-5 flex flex-col gap-5 '>
             <p className='text-center text-2xl font-bold'>Create Blog</p>
-            <BlogForm2 />
+            <BlogForm2 
+                apiKey={TinyMCE_API_KEY}
+            />
         </div>
     )
 }
