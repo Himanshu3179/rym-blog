@@ -17,7 +17,7 @@ cp .env.example .env
 After updating the environment variables, run the following commands:
 
 ```bash
-npx prisma generate && npx prisma migrate dev
+npx prisma generate && npx prisma db push
 ```
 
 To run the development server:
